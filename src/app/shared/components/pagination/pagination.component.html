@@ -1,0 +1,41 @@
+<div class="flex justify-between items-center mt-4" *ngIf="totalItems > 0">
+    <div class="text-sm text-gray-600">
+      Mostrando {{itemsPerPage * (currentPage - 1) + 1}}-{{getEndItem()}} de {{totalItems}} itens
+    </div>
+  
+    <div class="flex space-x-2">
+      <button (click)="goToFirstPage()" [disabled]="currentPage === 1"
+        class="px-3 py-1 rounded border disabled:opacity-50">
+        &laquo;
+      </button>
+      <button (click)="goToPreviousPage()" [disabled]="currentPage === 1"
+        class="px-3 py-1 rounded border disabled:opacity-50">
+        &lsaquo;
+      </button>
+  
+      <span *ngFor="let page of getPages()" (click)="goToPage(page)"
+        class="px-3 py-1 rounded border cursor-pointer" [class.bg-blue-500]="page === currentPage"
+        [class.text-white]="page === currentPage">
+        {{page}}
+      </span>
+  
+      <button (click)="goToNextPage()" [disabled]="currentPage === totalPages"
+        class="px-3 py-1 rounded border disabled:opacity-50">
+        &rsaquo;
+      </button>
+      <button (click)="goToLastPage()" [disabled]="currentPage === totalPages"
+        class="px-3 py-1 rounded border disabled:opacity-50">
+        &raquo;
+      </button>
+    </div>
+  
+    <div class="flex items-center">
+      <span class="text-sm mr-2">Itens por página:</span>
+      <select [(ngModel)]="itemsPerPage" (change)="onPageSizeChange()" class="border rounded px-2 py-1 text-sm">
+        <option value="5">5</option>
+        <option value="10">10</option>
+        <option value="20">20</option>
+        <option value="50">50</option>
+      </select>
+    </div>
+  </div>
